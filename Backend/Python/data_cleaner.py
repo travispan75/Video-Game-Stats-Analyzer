@@ -12,8 +12,7 @@ import pymongo
 load_dotenv()
 
 mongodb = pymongo.MongoClient(os.environ['MONGO_URI'])
-databases = mongodb.list_database_names()
-stats_database = mongodb["test"]
+stats_database = mongodb["Pokemon_Data"]
 stats_collection = stats_database["pkmnstatsschemas"]
 
 # get correct month and year to grab the ID for the document in the mongoDB database. Loop backwards through month and year 
@@ -52,11 +51,11 @@ usage_df = pd.DataFrame({
    'usage': usage_col
 }, index=name_row)
 usage_df.sort_values(by='usage', inplace=True, ascending=False)
+name_row = usage_df.index.tolist()
 
 # get top/bottom 10 Pokemon in terms of usage and determine underrated and overrated Pokemon
 # based on viability and usage z-scores
 
-# export this
 top_ten_pokemon = usage_df.head(10)
 bottom_ten_pokemon = usage_df.tail(10)
 
@@ -71,7 +70,6 @@ usage_df['z_score difference'] = usage_df['99th_gxe_z'] - usage_df['usage_z']
 z_score_df = usage_df[(usage_df['usage'] >= ou_threshold*0.5) & (usage_df['usage'] <= ou_threshold*1.5)].copy()
 z_score_df.sort_values(by='z_score difference', inplace=True, ascending=False)
 
-# export this
 underrated = z_score_df['z_score difference'].head(10)
 overrated = z_score_df['z_score difference'].tail(10)
 
@@ -92,11 +90,11 @@ for key, value in item_dict.items():
 
 item_dict = list(item_dict.items())
 item_dict.sort(key=lambda x: x[1], reverse=True)
-top_ten_items = item_dict[:20]
+top_twenty_items = item_dict[:20]
 
-# change in usage 
+# change in usage for each Pokemon
 
-document_list = [pkmn_data_document]
+document_list = []
 
 month_int -= 1
 if (month_int == 0):
@@ -117,7 +115,6 @@ while (stats_collection.find_one(f"{year_str}-{month_str}/chaos/gen9ou-1825.json
         month_str = '0' + month_str
     year_str = str(year_int)
 
-# organize data into a pandas Dataframe
 
 historic_usage = []
 for pokemon in name_row:
@@ -127,7 +124,9 @@ for pokemon in name_row:
             historic_usage[-1].append(document['data'][pokemon]['usage'])
         else:
             historic_usage[-1].append(None)
-usage_df['historic usages'] = historic_usage
+usage_df['historic usage'] = historic_usage
+
+# additional data for each Pokemon
 
 top_ev_spreads = []
 for pokemon in name_row:
@@ -160,3 +159,35 @@ for pokemon in name_row:
     total_item_usage = sum(x[1] for x in items)
     top_items.append([(x[0], x[1]/total_item_usage) for x in items[:8]])
 usage_df['top items'] = top_items
+
+top_teammates = []
+for pokemon in name_row:
+    teammates = list(pkmn_data_document['data'][pokemon]['Teammates'].items())
+    teammates.sort(key=lambda x: x[1], reverse=True)
+    total_teammate_usage = sum(x[1] for x in teammates)
+    top_teammates.append([(x[0], x[1]/total_teammate_usage) for x in teammates[:8]])
+usage_df['top teammates'] = top_teammates
+
+# export data to the cleaneddata collection so it can be used by the frontend
+usage_df_json = usage_df.to_dict(orient='index')
+underrated_json = underrated.to_dict()
+overrated_json = overrated.to_dict()
+top_twenty_items_json = dict(top_twenty_items)
+top_ten_pokemon_json = top_ten_pokemon.to_dict(orient='index')
+bottom_ten_pokemon_json = bottom_ten_pokemon.to_dict(orient='index')
+
+cleaned_data_collection = stats_database["cleaneddata"]
+
+cleaned_data_collection.update_one(
+    {"_id": f"{now.strftime('%m')}-{now.strftime('%Y')}"}, 
+    {"$set": 
+     {"pokemon_info": usage_df_json,
+      "underrated": underrated_json, 
+      "overrated": overrated_json, 
+      "top_twenty_items": top_twenty_items_json, 
+      "top_ten_pokemon": top_ten_pokemon_json, 
+      "bottom_ten_pokemon": bottom_ten_pokemon_json}},
+    upsert=True
+)
+
+mongodb.close()

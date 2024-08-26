@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router-dom';
 import './App.css';
-import Home from './Home';
-import Calculator from './Calculator';
-import Randomizer from './Randomizer';
-import Statistics from './Statistics';
+import Home from './pages/Home';
+import Calculator from './pages/Calculator';
+import Randomizer from './pages/Randomizer';
+import Statistics from './pages/Statistics';
 
 function App() {
   return (

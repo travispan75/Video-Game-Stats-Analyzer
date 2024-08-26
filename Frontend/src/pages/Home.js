@@ -1,7 +1,7 @@
-import Navbar from "./Components/Navbar";
-import CalcImg from "./images/calculator.png";
-import RandImg from "./images/dice.png";
-import StatImg from "./images/statistics.png";
+import Navbar from "../Components/Navbar";
+import CalcImg from "../images/calculator.png";
+import RandImg from "../images/dice.png";
+import StatImg from "../images/statistics.png";
 
 const Home = () => {
     const iconStyle = { backgroundColor:'transparent', width:'100px'};

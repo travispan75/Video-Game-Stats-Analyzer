@@ -8,9 +8,7 @@ const readline = require('readline')
 const statisticsRoutes = require('./routes/statistics')
 const calculatorRoutes = require('./routes/calculator')
 const randomizerRoutes = require('./routes/randomizer')
-const homeRoutes = require('./routes/home')
-const { checkData, getData, cleanData }  = require('./Controllers/data_controller')
-const app = express() 
+const { checkData, getData, cleanData }  = require('./controllers/data_controller')
 
 process.on('SIGINT', async () => {
     console.log('Closing mongoDB connection.');
@@ -28,18 +26,19 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(e)
     })
 
+const app = express() 
+app.use(express.json())
+
 app.use((req, res, next) => {
     console.log(req.path, req.method)
     next()
 })
 
-app.use('/statistics', statisticsRoutes)
+app.use('/api/statistics', statisticsRoutes)
 
-app.use('/calculator', calculatorRoutes)
+app.use('/api/calculator', calculatorRoutes)
 
-app.use('/randomizer', randomizerRoutes)
-
-app.use('/', homeRoutes)
+app.use('/api/randomizer', randomizerRoutes)
 
 const rl = readline.createInterface({
     input: process.stdin,

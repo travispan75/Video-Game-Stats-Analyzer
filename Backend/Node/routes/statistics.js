@@ -1,9 +1,13 @@
 const express = require('express')
-
 const router = express.Router()
 
-router.get('/', (req, res) => {
-    res.json({hi: 'hi'})
-})
+const {
+    getStats,
+    getPkmnStats
+} = require('../controllers/frontend_controllers')
+
+router.get('/:id', getPkmnStats)
+
+router.get('/', getStats)
 
 module.exports = router
