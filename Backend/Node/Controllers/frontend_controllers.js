@@ -28,10 +28,10 @@ const getMostRecentDoc = async (req, res) => {
 const getStats = async (req, res) => {
     let document = await getMostRecentDoc()
 
-    const { top_ten_pokemon, bottom_ten_pokemon, overrated, underrated, top_twenty_items } = document;
+    const { top_ten_pokemon, bottom_ten_pokemon, overrated, underrated, top_twenty_items, pokemon_info } = document;
 
     res.status(200).json({
-        top_ten_pokemon, bottom_ten_pokemon, overrated, underrated, top_twenty_items
+        top_ten_pokemon, bottom_ten_pokemon, overrated, underrated, top_twenty_items, pokemon_info
     });
 }
 

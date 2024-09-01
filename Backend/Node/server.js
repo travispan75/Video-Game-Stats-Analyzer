@@ -62,4 +62,4 @@ rl.on('line', (input) => {
     }
 })
 
-console.log('Listening for commands. Type "fetchStats" to trigger the task.')
+console.log('Listening for commands. Type "fetchStats" to get stats or cleanData to clean data.')

@@ -1,4 +1,4 @@
-import json
+import requests
 from datetime import datetime
 import os
 from dotenv import load_dotenv
@@ -55,6 +55,43 @@ name_row = usage_df.index.tolist()
 
 # get top/bottom 10 Pokemon in terms of usage and determine underrated and overrated Pokemon
 # based on viability and usage z-scores
+
+pokeAPIPkmn = "https://pokeapi.co/api/v2/pokemon/"
+pokeAPISpecies = "https://pokeapi.co/api/v2/pokemon-species/"
+pkmn_id = []
+for pokemon in name_row:
+    pokemon_name = pokemon.lower().replace(' ', '-')
+    response = requests.get(pokeAPIPkmn + f"{pokemon_name}/")
+    if response.status_code == 200:
+        response_json = response.json()
+        pkmn_id.append(response_json["id"])
+    else:
+        pkmn_arr = pokemon.lower().split('-', 1) 
+        pkmn_arr[0] = pkmn_arr[0].replace(' ', '-')
+        response = requests.get(pokeAPISpecies + f"{pkmn_arr[0]}/")
+        if response.status_code == 200:
+            response_json = response.json() 
+            forms = response_json.get("varieties", [])
+            pkmn_info_url = None
+            for form in forms:
+                if form["is_default"]:
+                    pkmn_info_url = form["pokemon"]["url"]
+                else:
+                    min_length = min(len(pokemon_name), len(form["pokemon"]["name"]))
+                    if pokemon_name[:min_length] == form["pokemon"]["name"][:min_length]:
+                        pkmn_info_url = form["pokemon"]["url"]
+                        break
+            if pkmn_info_url:
+                response = requests.get(pkmn_info_url)
+                response_json = response.json()
+                pkmn_id.append(response_json["id"])
+            else:
+                print(pokemon_name)
+                pkmn_id.append(0)
+        else:
+            print(pokemon_name)
+            pkmn_id.append(0)
+usage_df['ID'] = pkmn_id
 
 top_ten_pokemon = usage_df.head(10)
 bottom_ten_pokemon = usage_df.tail(10)

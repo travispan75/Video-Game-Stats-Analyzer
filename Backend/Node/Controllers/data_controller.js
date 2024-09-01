@@ -44,13 +44,13 @@ const getData = async () => {
             //await PkmnStatsSchema.deleteMany({})
             if (response.status === 200) {
                 let result = await PkmnStatsSchema.updateOne({_id: extension_url}, response.data, {upsert: true});
+                if (result.upsertedCount > 0) {
+                    console.log('Fetched stats for', extension_url);
+                } else {
+                    console.log('Updated stats for', extension_url)
+                }
             }
             //console.log(JSON.stringify(response.data, null, 2).slice(0, 20000))
-            if (result.upsertedCount > 0) {
-                console.log('Fetched stats for', extension_url);
-            } else {
-                console.log('Updated stats for', extension_url)
-            }
         } catch (e) {
             console.error(e)
         }
