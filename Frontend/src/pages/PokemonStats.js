@@ -31,9 +31,9 @@ const checkName = (name, stats) => {
                 <div className="row">
                     <div className="pkmn-info1">
                         <div className="pkmn-graphs">
-                            <PastUsageChart pastUsage={[stats["pokemon_info"][name]["usage"]].concat(stats["pokemon_info"][name]["historic usage"]).reverse()} currTime={stats["_id"]} name={name}/>
+                            <PastUsageChart pastUsages={[[stats["pokemon_info"][name]["usage"]].concat(stats["pokemon_info"][name]["historic usage"]).reverse()]} currTime={stats["_id"]} names={[name]} title="Pokemon Usage Over Time"/>
                         </div>
-                        <div className="row info-box-cluster">
+                        <div className="row">
                             <div className="info-box tall">
                                 <h3>Top EV Spreads</h3>
                                 {stats["pokemon_info"][name]["top_ev_spreads"].map((spread, index) => (
@@ -41,11 +41,21 @@ const checkName = (name, stats) => {
                                         <span>{spread[0]}</span>
                                         <span>{(spread[1] * 100).toFixed(2)}%</span>
                                     </div>
-                                ))}    
+                                ))}
                             </div>
-                        </div>
-                        <div className="row info-box-cluster">
-                            
+                            <div className="column summary">
+                                <div className="sentence">
+                                    <h3>Used in <span className="num-emphasis1">{stats["pokemon_info"][name]["viability"][0]}</span> battles in 1825+ ELO last month</h3>
+                                </div>
+                                <div className="sentence">
+                                    <h3>99th Percentile GXE:</h3>
+                                    <span className="num-emphasis2">{stats["pokemon_info"][name]["viability"][2]}%</span>
+                                </div>
+                                <div className="sentence">
+                                    <h3>99th Percentile GXE Z-score:</h3>
+                                    <span className="num-emphasis3">{stats["pokemon_info"][name]["99th_gxe_z"].toFixed(4)}</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div className="pkmn-info2">
@@ -132,7 +142,7 @@ const checkName = (name, stats) => {
         return (
             <div>
                 <h1>{name}</h1>
-                <h2>unused</h2>
+                <h2>Pokemon is used too little in 1825+</h2>
             </div>
         )
     } else {

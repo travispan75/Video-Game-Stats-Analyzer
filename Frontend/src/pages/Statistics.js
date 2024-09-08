@@ -1,6 +1,7 @@
 
 import Navbar from "../components/Navbar";
 import SearchBar from "../components/SearchBar";
+import PastUsageChart from "../components/PastUsageChart";
 import { useEffect, useState } from 'react';
 import { useStats } from '../contexts/StatsContext'
 
@@ -75,6 +76,9 @@ const Statistics = () => {
                 <div className="column2">
                     <div className="search-bar-container">
                         <SearchBar pkmnInfo={pkmnStats['pokemon_info']} unusedInfo={pkmnStats['unused_pokemon']}/>
+                    </div>
+                    <div className="top-ten-graph">
+                        <PastUsageChart pastUsages={Object.values(pkmnStats['top_ten_pokemon']).map(data => data["historic usage"].reverse().concat(data['usage']))} currTime={pkmnStats['_id']} names={Object.keys(pkmnStats['top_ten_pokemon'])} title="Top Ten Pokemon Usage Over Time"/>
                     </div>
                 </div>
             </div>

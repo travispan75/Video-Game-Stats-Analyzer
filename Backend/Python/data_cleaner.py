@@ -101,9 +101,6 @@ for pokemon in name_row:
     pkmn_id.append(getPkmnID(pokemon))
 usage_df['ID'] = pkmn_id
 
-top_ten_pokemon = usage_df.head(10)
-bottom_ten_pokemon = usage_df.tail(10)
-
 ou_threshold = 0.0425
 
 usage_df['99th_gxe'] = usage_df['viability'].apply(lambda x: x[2])
@@ -187,6 +184,9 @@ for pokemon in name_row:
         else:
             historic_usage[-1].append(None)
 usage_df['historic usage'] = historic_usage
+
+top_ten_pokemon = usage_df.head(10)
+bottom_ten_pokemon = usage_df.tail(10)
 
 # additional data for each Pokemon
 

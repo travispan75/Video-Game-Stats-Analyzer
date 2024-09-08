@@ -26,19 +26,22 @@ const getXLabel = (currTime) => {
   return xLabels
 }
 
-const PastUsageChart = ({ pastUsage, currTime, name }) => {
+const PastUsageChart = ({ pastUsages, currTime, names, title }) => {
+  const datasets = names.map((name, index) => ({
+    label: name,
+    data: pastUsages[index].map(value => value * 100),
+    borderColor: `rgba(${229 - index * 30}, ${85 - index * 30}, 86, 1)`,
+    fill: false,
+    tension: 0,
+  }));
+
   const data = {
     labels: getXLabel(currTime), 
-    datasets: [
-      {
-        label: name,
-        data: pastUsage.map(value => value * 100),  
-        borderColor: 'rgba(255, 99, 132, 1)',
-        fill: false,
-        tension: 0,  
-      }
-    ],
+    datasets: datasets,
   };
+
+  const maxValue = Math.max(...pastUsages.flat().map(value => value * 100));
+  const maxY = Math.min(maxValue + 10, 100);
 
   const options = {
     responsive: true,
@@ -55,14 +58,13 @@ const PastUsageChart = ({ pastUsage, currTime, name }) => {
       },
       title: {
         display: true,
-        text: 'Pokemon Usage Over Time',
+        text: title,
         font: {
           family: 'Poppins',
           size: 18,
           weight: 'bold',
         },
       },
-      
       tooltip: {
         backgroundColor: 'rgba(0, 0, 0, 0.7)', 
       },
@@ -104,7 +106,7 @@ const PastUsageChart = ({ pastUsage, currTime, name }) => {
       y: {
         beginAtZero: true,
         min: 0,
-        max: 100,
+        max: maxY,  // Dynamically set maxY
         title: {
           display: true,
           text: 'Usage (%)',

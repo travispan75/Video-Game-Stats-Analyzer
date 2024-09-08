@@ -642,5 +642,42 @@ body {
 }
 
 .info-box.tall {
+  width: 350px;
   max-height: 600px;
+  margin-right: 30px;
+}
+
+.column.summary {
+  width: 300px;
+}
+
+.column.summary h3 {
+  font-weight: 400;
+}
+
+.sentence {
+  margin-bottom: 20px;
+}
+
+.num-emphasis1 {
+  font-weight: 700;
+  font-size: 30px;
+  color: #dcb42f;
+}
+
+.num-emphasis2 {
+  font-weight: 700;
+  font-size: 25px;
+  color: #2f8bdc;
+}
+
+.num-emphasis3 {
+  font-weight: 700;
+  font-size: 20px;
+  color: #dc2f88;
+}
+
+.top-ten-graph {
+  width: 750px;
+  height: 490px;
 }
