@@ -10,6 +10,7 @@ const pokemonDataSchema = new Schema({
     usage: Number,
     Items: {type: Map, of: Number},
     Spreads: {type: Map, of: Number},
+    "Tera Types": {type: Map, of: Number},
     "Viability Ceiling": [Number]
 }, {_id: false});
   

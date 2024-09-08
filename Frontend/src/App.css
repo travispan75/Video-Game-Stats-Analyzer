@@ -6,8 +6,11 @@
   margin: 0;
   padding: 0;
   color: #4a4a4a;
-  background-color: #ebeef1;
 } 
+
+body {
+  background-color: #ebeef1;
+}
 
 ::selection {
   color: #F2F2F2;
@@ -131,7 +134,6 @@
   font-weight: 600;
   font-size: 18px;
   margin-top: 24px;
-  background-color: transparent;
   padding: 0px 20px;
 }
 
@@ -187,7 +189,7 @@
 
 .column2 {
   flex: 0 0 60%;
-  text-align: center; 
+  align-items: center; 
 }
 
 .leaderboard {
@@ -241,7 +243,6 @@
 }
 
 .leaderboard-cell h1 {
-  background-color: transparent;
   font-size: 18px;
 }
 
@@ -253,7 +254,6 @@
 .leaderboard-cell img {
   margin-top: -50px;
   width: 75px;
-  background-color: transparent;
 }
 
 .leaderboard-cell .podium-num {
@@ -287,7 +287,6 @@
 }
 
 .leaderboard-list .row {
-  background-color: transparent;
   display: flex; 
   align-items: center;
   justify-content: space-between; 
@@ -310,7 +309,6 @@
 .leaderboard-list .row img {
   flex: 0 0 15%; 
   margin-right: 12px; 
-  background-color: transparent;
   width: 50px;
   vertical-align: middle;
 }
@@ -326,8 +324,323 @@
 }
 
 .leaderboard-list h1 {
-  background-color: transparent;
   font-size: 14px;
   font-family: 'Poppins';
 }
 
+/* Search Bar */
+
+.search-bar-container {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-bar {
+  display: flex;
+  position: relative;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search-box {
+  font-family: 'Poppins';
+  flex: 1;
+  border: 2px solid rgb(133, 133, 133);
+  outline: none;
+  background: none;
+  padding: 20px;
+  padding-left: 64px;
+  background-color: rgb(208, 208, 208);
+  margin: 0;
+  box-shadow: none;
+  width: 420px;
+  height: 48px;
+  border-radius: 30px;
+}
+
+.search-box::placeholder {
+  font-family: 'Poppins';
+  color: #4a4a4a;
+  font-style: italic;
+}
+
+.search-bar img {
+  position: absolute;
+  width: 25px;
+  margin-left: 22px;
+}
+
+.search-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 28px;
+  right: 28px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: rgb(199, 199, 199);
+}
+
+.search-suggestions ul {
+  font-family: 'Poppins';
+  font-size: 14px;
+  margin-left: 10px;
+  padding: 5px;
+  list-style: none;
+  max-height: 200px; 
+  overflow-y: auto;
+}
+
+.search-suggestions ul::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.search-suggestions ul::-webkit-scrollbar-track {
+  background: #dbdbdb;
+  border-radius: 8px; 
+}
+
+.search-suggestions ul::-webkit-scrollbar-thumb {
+  background-color: #969696; 
+  border-radius: 8px; 
+  border: 2px solid #f0f0f0; 
+}
+
+.search-suggestions ul::-webkit-scrollbar-thumb:hover {
+  background-color: #6c6c6c; 
+}
+
+.pkmn-info1 {
+  margin-top: 10px;
+  font-family: 'Poppins';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 40px;
+}
+
+.pkmn-info2 {
+  margin-top: 10px;
+  font-family: 'Poppins';
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 40px;
+}
+
+.typing {
+  display: flex;
+}
+
+.type {
+  width: 100px;
+  height: 40px;
+  display: inline-block;
+  text-align: center;
+  line-height: 40px;
+  border-radius: 6px;
+  margin: 0px 5px;
+}
+
+.dark {
+  color: #dbdbdb;
+  background-color: #4a4a4a;
+}
+
+.steel {
+  color: #dbdbdb;
+  background-color: #797979;
+}
+
+.water {
+  color: #dbdbdb;
+  background-color: #347be4;
+}
+
+.fire {
+  color: #dbdbdb;
+  background-color: #d5693b;
+}
+
+.grass {
+  color: #dbdbdb;
+  background-color: #55b377;
+}
+
+.flying {
+  color: #dbdbdb;
+  background-color: #5da6c3;
+}
+
+.fairy {
+  color: #dbdbdb;
+  background-color: #c66fb9;
+}
+
+.psychic {
+  color: #dbdbdb;
+  background-color: #aa55bf;
+}
+
+.bug {
+  color: #dbdbdb;
+  background-color: #78a05e;
+}
+
+.fighting {
+  color: #dbdbdb;
+  background-color: #af6529;
+}
+
+.ice {
+  color: #dbdbdb;
+  background-color: #7cbfc6;
+}
+
+.ground {
+  color: #dbdbdb;
+  background-color: #916754;
+}
+
+.rock {
+  color: #dbdbdb;
+  background-color: #9f8871;
+}
+
+.ghost {
+  color: #dbdbdb;
+  background-color: #614d7a;
+}
+
+.normal {
+  color: #4a4a4a;
+  background-color: #d0d0d0;
+}
+
+.poison {
+  color: #dbdbdb;
+  background-color: #7b3e81;
+}
+
+.electric {
+  color: #4a4a4a;
+  background-color: #d9cf46;
+}
+
+.dragon {
+  color: #dbdbdb;
+  background-color: #49269b;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.column {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pkmn-sprite {
+  width: 130px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.pkmn-graphs {
+  width: 660px;
+  height: 550px;
+  font-family: 'Poppins';
+  margin-bottom: 20px;
+}
+
+.row .stats {
+  margin-left: 24px;
+  align-items: center;
+}
+
+.stat-label {
+  margin-bottom: 8px;
+}
+
+.stats-label {
+  align-items: flex-end;
+}
+
+.stats-num {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; 
+}
+
+.bar {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: rgb(236, 193, 193);
+  width: 40px;
+  height: 22px;
+  background-color: #e55256;
+  border-radius: 8px;
+  margin: 0px 15px 10px 8px;
+}
+
+.main-info {
+  margin-bottom: 30px;
+}
+
+.info-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 200px; 
+  overflow-y: auto;
+  background-color: rgb(228, 228, 228);
+}
+
+.info-box .row {
+  justify-content: space-between;
+}
+
+.info-box::-webkit-scrollbar {
+  width: 12px; 
+}
+
+.info-box::-webkit-scrollbar-track {
+  background: #dbdbdb;
+  border-radius: 8px; 
+}
+
+.info-box::-webkit-scrollbar-thumb {
+  background-color: #969696; 
+  border-radius: 8px; 
+  border: 2px solid #f0f0f0; 
+}
+
+.info-box-cluster {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 16px;
+  width: 600px;
+}
+
+.info-box.long {
+  grid-column: span 2;
+}
+
+.pokemonStats {
+  margin-bottom: 70px;
+}
+
+.info-box.tall {
+  max-height: 600px;
+}

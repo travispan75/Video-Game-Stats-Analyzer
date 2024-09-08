@@ -1,24 +1,11 @@
 
-import Navbar from "../Components/Navbar";
+import Navbar from "../components/Navbar";
+import SearchBar from "../components/SearchBar";
 import { useEffect, useState } from 'react';
+import { useStats } from '../contexts/StatsContext'
 
 const Statistics = () => {
-    const [pkmnStats, setPkmnStats] = useState(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const response = await fetch('/api/statistics')
-            const json = await response.json()
-
-            if (response.ok) {
-                setPkmnStats(json)
-            }
-            setLoading(false)
-        }
-
-        fetchData()
-    }, [])
+    const { pkmnStats, loading } = useStats();
 
     useEffect(() => {
         const adjustFontSize = () => {
@@ -86,7 +73,9 @@ const Statistics = () => {
                     </div>
                 </div>
                 <div className="column2">
-                    <h1>Search</h1>
+                    <div className="search-bar-container">
+                        <SearchBar pkmnInfo={pkmnStats['pokemon_info']} unusedInfo={pkmnStats['unused_pokemon']}/>
+                    </div>
                 </div>
             </div>
         </div>
