@@ -4,6 +4,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const axios = require('axios')
 const readline = require('readline')
+const cron = require('node-cron');
 
 const statisticsRoutes = require('./routes/statistics')
 const calculatorRoutes = require('./routes/calculator')
@@ -20,7 +21,10 @@ mongoose.connect(process.env.MONGO_URI)
         app.listen(process.env.PORT, () => {
             console.log('connected to mongodb & listening on port', process.env.PORT)
         }) 
-        checkData();
+
+        cron.schedule('0 0 3 * *', () => {
+            checkData();
+        });
     })
     .catch((e) => {
         console.log(e)
