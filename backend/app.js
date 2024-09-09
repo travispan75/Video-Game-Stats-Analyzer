@@ -33,7 +33,7 @@ mongoose.connect(process.env.MONGO_URI)
 const app = express() 
 app.use(express.json())
 app.use(cors({
-    origin: 'http://localhost:3000'
+    origin: 'https://overused-resources.onrender.com'
 }))
 
 app.use((req, res, next) => {
