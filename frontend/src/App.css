@@ -25,6 +25,7 @@ body {
   user-select: none;
   position: relative;
   margin-bottom: 30px;
+  width: 100%;
 }
 
 .navbar ul {
@@ -681,4 +682,18 @@ body {
   margin-top: 20px;
   width: 750px;
   height: 490px;
+}
+
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  margin-top: 200px;
+  text-align: center;
+  align-items: center;
+  font-family: 'Poppins';
+  font-size: 30px;
+}
+
+.coming-soon span {
+  font-weight: 400;
 }
