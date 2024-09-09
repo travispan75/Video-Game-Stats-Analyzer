@@ -1,5 +1,4 @@
 require('dotenv').config()
-console.log('ya yeet: ', process.env.MONGO_URI)
 
 const express = require('express')
 const mongoose = require('mongoose')
@@ -33,6 +32,9 @@ mongoose.connect(process.env.MONGO_URI)
 
 const app = express() 
 app.use(express.json())
+app.use(cors({
+    origin: 'http://localhost:3000'
+}))
 
 app.use((req, res, next) => {
     console.log(req.path, req.method)

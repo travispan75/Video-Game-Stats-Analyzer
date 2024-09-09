@@ -10,7 +10,7 @@ export const StatsProvider = ({ children }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await fetch('/api/statistics');
+            const response = await fetch('https://video-game-stats-analyzer.onrender.com/api/statistics');
             const json = await response.json();
 
             if (response.ok) {
