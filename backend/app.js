@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const axios = require('axios')
 const readline = require('readline')
 const cron = require('node-cron');
+const cors = require('cors')
 
 const statisticsRoutes = require('./routes/statistics')
 const calculatorRoutes = require('./routes/calculator')
